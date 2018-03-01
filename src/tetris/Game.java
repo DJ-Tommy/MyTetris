@@ -61,19 +61,72 @@ public class Game {
         return status;
     }
 
+    public static void deleteLine(int line) {
+        int [][] deleteMatrix = new int[Matrix.getSize().y][Matrix.getSize().x];
+        for (int y = 0; y < line; y++) {
+            for (int x = 0; x < Matrix.getSize().x; x++) {
+                deleteMatrix[y][x] = Matrix.getStatus(y, x);
+            }
+        }
+
+        for (int y = 0; y < line + 1; y++) {
+            for (int x = 0; x < Matrix.getSize().x; x++) {
+                if (y == 0)Matrix.setMatrixField(new Coord(x, y), 9);
+                else Matrix.setMatrixField(new Coord(x, y), deleteMatrix [y-1][x]);
+            }
+        }
+    }
+
+    public static void scanLine() {
+        int countLine = 0;
+        for (int y = 0; y < Matrix.getSize().y; y++) {
+            int countOnLine = 0;
+            for (int x = 0; x < Matrix.getSize().x; x++) {
+                if (Matrix.getStatus(y, x) != 9) countOnLine++;
+            }
+            if (countOnLine >= Matrix.getSize().x) {
+                deleteLine(y);
+                countLine++;
+            }
+        }
+        Matrix.setScores((100 + (countLine * 25)) * countLine);
+    }
+
+    public static boolean checkRotate() {
+        boolean t = true;
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
+                try {
+                    if (figureFeild.matrixFigure[x][3 - y] != 9
+                            && figureFeild.coord.x + x >= Matrix.getSize().x
+                            || figureFeild.coord.x + x < 0) t = false;
+                    if (figureFeild.matrixFigure[x][3 - y] != 9
+                            && Matrix.getStatus(figureFeild.coord.y + y, figureFeild.coord.x + x) != 9) {
+                        t = false;
+                    }
+
+                } catch (Exception e) { }
+            }
+        }
+        //if (figureFeild.coord.x + getEmptyLineFigure()[3] < 1
+        //        && figureFeild.coord.x - getEmptyLineFigure()[1] + 4 >= Matrix.getSize().x) t = false;
+        return t;
+    }
     public static void rotateFigure() {
-        int[][] rotateMatrix = new int[4][4];
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
-                rotateMatrix [y][x] = figureFeild.matrixFigure[y][x];
+        if (checkRotate()) {
+            int[][] rotateMatrix = new int[4][4];
+            for (int y = 0; y < 4; y++) {
+                for (int x = 0; x < 4; x++) {
+                    rotateMatrix[y][x] = figureFeild.matrixFigure[y][x];
+                }
             }
-        }
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
-                figureFeild.matrixFigure[y][x] = rotateMatrix [x][3 - y];
+            for (int y = 0; y < 4; y++) {
+                for (int x = 0; x < 4; x++) {
+                    figureFeild.matrixFigure[y][x] = rotateMatrix[x][3 - y];
+                }
             }
+            moveFigure(figureFeild.coord);
         }
-        moveFigure(figureFeild.coord);
     }
 
     public static void moveFigureToLeft() {
@@ -143,10 +196,18 @@ public class Game {
         return t;
     }
 
+    public static void moveFullDown() {
+        while (checkDown()) {
+            moveFigureToDown();
+        }
+        moveFigureToDown();
+    }
+
     public static void moveFigureToDown() {
 
         if (!checkDown()) {
             addFigureToMatrixField(figureFeild.coord);
+            scanLine();
             nextFigure();
         }
         if (checkDown()) figureFeild.coord.y++;
@@ -181,9 +242,11 @@ public class Game {
     }
 
     public static void nextFigure() {
-        newFigureField();
-        newFigureMenu();
-        moveFigure(figureFeild.coord);
+        if (!gameOver()) {
+            newFigureField();
+            newFigureMenu();
+            moveFigure(figureFeild.coord);
+        }
     }
 
 
@@ -193,6 +256,14 @@ public class Game {
         newFigureField();
         newFigureMenu();
         moveFigure(new Coord(1,1));
+    }
+
+    public static boolean gameOver() {
+        boolean t =  false;
+        for (int x = 0; x < Matrix.getSize().x; x++)
+            if (Matrix.getStatus(1, x) != 9) t = true;
+
+        return t;
     }
 }
 

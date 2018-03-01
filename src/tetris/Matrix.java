@@ -8,6 +8,7 @@ import java.awt.*;
 // 13  14  15  16
 public class Matrix {
 
+    private static int scores;
     private static Coord size;
     private static int [][] matrixField;
     private static int [][] matrixFigureOnField;
@@ -68,4 +69,11 @@ public class Matrix {
         matrixFigureOnField[coord.y][coord.x] = color;
     }
 
+    public static int getScores() {
+        return scores;
+    }
+
+    public static void setScores(int scores) {
+        Matrix.scores += scores;
+    }
 }
