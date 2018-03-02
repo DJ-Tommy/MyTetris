@@ -8,7 +8,7 @@ public class Figure {
     public Figure(int nomber) {
         color = nomber;
         int count  = 0;
-        coord = new Coord(Matrix.getSize().x / 2 - 2, 0);
+        coord = new Coord(Matrix.getSize().x / 2 - 2, -4);
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
                 count++;

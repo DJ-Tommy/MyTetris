@@ -234,7 +234,7 @@ public class Game {
         }
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
-                if (figureFeild.matrixFigure[y][x] < 9) {
+                if (figureFeild.matrixFigure[y][x] < 9 && figureFeild.coord.y + y >= 0) {
                     Matrix.setMatrixFigureOnField(new Coord(figureFeild.coord.x + x, figureFeild.coord.y + y), figureFeild.color);
                 }
             }
@@ -255,7 +255,7 @@ public class Game {
         newFigureMenu();
         newFigureField();
         newFigureMenu();
-        moveFigure(new Coord(1,1));
+        moveFigure(figureFeild.coord);
     }
 
     public static boolean gameOver() {

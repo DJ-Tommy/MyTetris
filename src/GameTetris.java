@@ -12,12 +12,14 @@ public class GameTetris extends JFrame {
     private JPanel panelField;
     private JPanel panelMenu;
 
-    private final String TITLE = "Tetris v.0.1.1";
-    private final int FIELD_HEIGHT = 18; // высота игрового поля в блоках
-    private final int FIELD_WIDTH = 10; // ширина игрового поля в блоках
-    private final  int SIZE_BlOCK = 25; // размер каждого блока
-    private final int MENU_HEIGHT = 6; // высота блока меню
-    private final int sleep = 1500;
+    private final String TITLE = "Tetris v.1.0.1";
+    private final int FIELD_HEIGHT = 20; // высота игрового поля в блоках
+    private final int FIELD_WIDTH = 8; // ширина игрового поля в блоках
+    private final  int SIZE_BlOCK = 28; // размер каждого блока
+    private final int MENU_HEIGHT = 4; // высота блока меню
+    private final int sleep = 600;
+    private final int x_start;
+    private final int y_start;
 
 
     public static void main(String[] args) {
@@ -27,6 +29,8 @@ public class GameTetris extends JFrame {
     private GameTetris() {
 
         new Game(FIELD_WIDTH, FIELD_HEIGHT);
+        x_start = (FIELD_WIDTH - 3) * SIZE_BlOCK; // + SIZE_BlOCK / 2;
+        y_start = (MENU_HEIGHT - 3) * SIZE_BlOCK + SIZE_BlOCK / 2;
         initGameField();
         initMenuField();
         initFrame();
@@ -73,6 +77,14 @@ public class GameTetris extends JFrame {
                         }
                     }
                 }
+                if (Game.gameOver()) {
+                    Color color = Color.WHITE;
+                    gr.setColor(color);
+                    Font font = new Font("Times New Roman", 1, SIZE_BlOCK * 2);
+                    gr.setFont(font);
+                    gr.drawString("GAME", SIZE_BlOCK,SIZE_BlOCK * 3);
+                    gr.drawString("OVER", SIZE_BlOCK,SIZE_BlOCK * 6);
+                }
 
             }
         };
@@ -88,23 +100,27 @@ public class GameTetris extends JFrame {
             @Override
             protected void paintComponent(Graphics gr) {
                 super.paintComponent(gr);
-                for (int y = 0; y < MENU_HEIGHT; y++) {
-                    for (int x = 0; x < FIELD_WIDTH; x++) {
-                        if (x > 0 && y > 0) {
-                            Color color = Matrix.getColor(9);
-                            gr.setColor(color);
-                            gr.drawLine(x * SIZE_BlOCK - SIZE_BlOCK / 5, y * SIZE_BlOCK, x * SIZE_BlOCK + SIZE_BlOCK / 5, y * SIZE_BlOCK);
-                            gr.drawLine(x * SIZE_BlOCK, y * SIZE_BlOCK - SIZE_BlOCK / 5, x * SIZE_BlOCK, y * SIZE_BlOCK + SIZE_BlOCK / 5);
-                        }
-                        if (x > FIELD_WIDTH - 5 && y > MENU_HEIGHT - 5 && x < FIELD_WIDTH && y < MENU_HEIGHT
-                                && Game.figureMenu.matrixFigure[y - MENU_HEIGHT + 4][x - FIELD_WIDTH + 4] < 9) {
-                            Color color = Matrix.getColor(Game.figureMenu.color);
-                            gr.setColor(color);
-                            gr.fill3DRect(x * SIZE_BlOCK + 1, y * SIZE_BlOCK + 1, SIZE_BlOCK - 2, SIZE_BlOCK - 2, true);
-                        }
+                //Color color = Matrix.getColor(9);
+                Color color = Color.BLACK;
+                gr.setColor(color);
+                gr.draw3DRect(x_start - 2, y_start - 2, SIZE_BlOCK * 2 + 2, SIZE_BlOCK * 2 + 2, true);
+                Font font = new Font("Times New Roman", 1, SIZE_BlOCK / 5 * 3);
+                gr.setFont(font);
+                gr.drawString("Next Figure", x_start - SIZE_BlOCK / 2, SIZE_BlOCK);
+                gr.drawString("Score:", SIZE_BlOCK, SIZE_BlOCK);
+                gr.draw3DRect(SIZE_BlOCK / 2, SIZE_BlOCK * 3 / 2, SIZE_BlOCK * 3, SIZE_BlOCK, true);
+                gr.drawString(String.valueOf(Matrix.getScores()), SIZE_BlOCK, SIZE_BlOCK * 2 + SIZE_BlOCK / 5);
+                gr.drawString("Press ENTER", SIZE_BlOCK / 2, SIZE_BlOCK * 3 + SIZE_BlOCK / 5);
+                gr.drawString("for Start now", SIZE_BlOCK / 2, SIZE_BlOCK * 4 - SIZE_BlOCK / 4);
+
+                color = Matrix.getColor(Game.figureMenu.color);
+                gr.setColor(color);
+                for (int y = 0; y < 4; y++) {
+                    for (int x = 0; x < 4; x++) {
+                        if (Game.figureMenu.matrixFigure[y][x] != 9)
+                        gr.fill3DRect(x * SIZE_BlOCK / 2 + 1 + x_start, y * SIZE_BlOCK / 2 + 1 + y_start, SIZE_BlOCK / 2 - 2, SIZE_BlOCK / 2 - 2, true);
                     }
                 }
-
             }
         };
 
@@ -125,8 +141,11 @@ public class GameTetris extends JFrame {
             @Override
             public void keyPressed(KeyEvent e2) {
 
+                if (e2.getKeyCode() == KeyEvent.VK_ENTER) {
+                    Game.start();
+                }
+
                 if (e2.getKeyCode() == KeyEvent.VK_DOWN) {
-                    //Game.rotateFigure();
                     Game.moveFullDown();
                 }
 
