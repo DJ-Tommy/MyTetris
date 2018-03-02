@@ -17,7 +17,8 @@ public class GameTetris extends JFrame {
     private final int FIELD_WIDTH = 8; // ширина игрового поля в блоках
     private final  int SIZE_BlOCK = 28; // размер каждого блока
     private final int MENU_HEIGHT = 4; // высота блока меню
-    private int sleep = 600;
+    private final int SLEEP_START = 700;
+    private int sleep;
     private final int x_start;
     private final int y_start;
 
@@ -34,6 +35,7 @@ public class GameTetris extends JFrame {
         initGameField();
         initMenuField();
         initFrame();
+        sleep = SLEEP_START;
         goTimer();
 
     }
@@ -144,6 +146,7 @@ public class GameTetris extends JFrame {
 
                 if (e2.getKeyCode() == KeyEvent.VK_ENTER) {
                     Game.start();
+                    sleep = SLEEP_START;
                 }
 
                 if (e2.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -152,12 +155,10 @@ public class GameTetris extends JFrame {
 
                 if (e2.getKeyCode() == KeyEvent.VK_UP) {
                     Game.rotateFigure();
-                    //Game.start();
                 }
 
                 if (e2.getKeyCode() == KeyEvent.VK_LEFT) {
                     Game.moveFigureToLeft();
-                    //MatrixGame.moveKeyboard(9, true);
                 }
 
                 if (e2.getKeyCode() == KeyEvent.VK_RIGHT) {

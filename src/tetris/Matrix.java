@@ -57,7 +57,7 @@ public class Matrix {
         return matrixField [y][x];
     }
 
-    public static void setMatrixField(Coord coord, int color) {
+    protected static void setMatrixField(Coord coord, int color) {
         matrixField [coord.y][coord.x] = color;
     }
 
@@ -65,7 +65,7 @@ public class Matrix {
         return matrixFigureOnField[y][x];
     }
 
-    public static void setMatrixFigureOnField(Coord coord, int color) {
+    protected static void setMatrixFigureOnField(Coord coord, int color) {
         matrixFigureOnField[coord.y][coord.x] = color;
     }
 
@@ -73,7 +73,7 @@ public class Matrix {
         return scores;
     }
 
-    public static void setScores(int scores) {
+    protected static void setScores(int scores) {
         Matrix.scores += scores;
     }
 }

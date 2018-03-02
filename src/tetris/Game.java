@@ -1,7 +1,5 @@
 package tetris;
 
-import java.util.Arrays;
-
 public class Game {
 
     public static Figure figureFeild;
@@ -11,18 +9,15 @@ public class Game {
         Matrix.setSize(new Coord(WIDTH, HEIGHT));
         Matrix.startMatrixField();
         start();
-
     }
 
     public static void newFigureMenu() {
         int random = (int) (Math.random() * 7);
         figureMenu = new Figure(random);
-
     }
 
     public static void newFigureField() {
         figureFeild = figureMenu;
-
     }
 
     private static int [] getEmptyLineFigure() {
