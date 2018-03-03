@@ -44,13 +44,10 @@ public class Matrix {
                 matrixFigureOnField[y][x] = 9;
             }
         }
-
-
     }
 
     public static Color getColor(int color) {
         return matrixColor[color];
-
     }
 
     public static int getStatus(int y, int x) {

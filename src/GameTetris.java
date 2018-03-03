@@ -12,14 +12,14 @@ public class GameTetris extends JFrame {
     private JPanel panelField;
     private JPanel panelMenu;
 
-    private final String TITLE = "Tetris v.1.0.1";
+    private final String TITLE = "Tetris v.1.0.2";
     private final int FIELD_HEIGHT = 20; // высота игрового поля в блоках
     private final int FIELD_WIDTH = 8; // ширина игрового поля в блоках
     private final  int SIZE_BlOCK = 28; // размер каждого блока
     private final int MENU_HEIGHT = 4; // высота блока меню
-    private final int SLEEP_START = 800;
-    private int sleep;
-    private final int x_start;
+    private final int SLEEP_START = 800; // начальная скорость
+    private int sleep; // скорость будет расти
+    private final int x_start; // для отображения следующей фигуры
     private final int y_start;
 
 
@@ -30,7 +30,7 @@ public class GameTetris extends JFrame {
     private GameTetris() {
 
         new Game(FIELD_WIDTH, FIELD_HEIGHT);
-        x_start = (FIELD_WIDTH - 3) * SIZE_BlOCK; // + SIZE_BlOCK / 2;
+        x_start = (FIELD_WIDTH - 3) * SIZE_BlOCK;
         y_start = (MENU_HEIGHT - 3) * SIZE_BlOCK + SIZE_BlOCK / 2;
         initGameField();
         initMenuField();
@@ -49,7 +49,6 @@ public class GameTetris extends JFrame {
             panelField.repaint();
             panelMenu.repaint();
             sleep--;
-
         }
     }
 
@@ -103,7 +102,6 @@ public class GameTetris extends JFrame {
             @Override
             protected void paintComponent(Graphics gr) {
                 super.paintComponent(gr);
-                //Color color = Matrix.getColor(9);
                 Color color = Color.BLACK;
                 gr.setColor(color);
                 gr.draw3DRect(x_start - 2, y_start - 2, SIZE_BlOCK * 2 + 2, SIZE_BlOCK * 2 + 2, true);
@@ -174,16 +172,10 @@ public class GameTetris extends JFrame {
             }
         });
 
-
-
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(TITLE);
         setVisible(true);
         pack(); //автоматический подбор размера фрейма
         setLocationRelativeTo(null); // отобразить окно по центру экрана, обычно пишется в конце, иначе может не отрабатывать
     }
-
-
-
 }

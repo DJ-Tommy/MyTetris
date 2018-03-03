@@ -21,38 +21,33 @@ public class Game {
     }
 
     private static int [] getEmptyLineFigure() {
-        int countleft0 = 0;
-        int countleft1 = 0;
-        int countright0 = 0;
-        int countright1 = 0;
-        int countdown0 = 0;
-        int countdown1 = 0;
-        int countup0 = 0;
-        int countup1 = 0;
+        int countleft0 = 0; int countleft1 = 0;
+            int countright0 = 0; int countright1 = 0;
+                int countdown0 = 0; int countdown1 = 0;
+                    int countup0 = 0; int countup1 = 0;
         int[] status = new int[4];
         for (int y = 0; y < 4; y++) {
-
-                if (figureFeild.matrixFigure[y][0] == 9) countleft0++;
+            if (figureFeild.matrixFigure[y][0] == 9) countleft0++;
                 if (figureFeild.matrixFigure[y][1] == 9) countleft1++;
-                if (figureFeild.matrixFigure[y][3] == 9) countright0++;
+            if (figureFeild.matrixFigure[y][3] == 9) countright0++;
                 if (figureFeild.matrixFigure[y][2] == 9) countright1++;
-                if (figureFeild.matrixFigure[3][y] == 9) countdown0++;
+            if (figureFeild.matrixFigure[3][y] == 9) countdown0++;
                 if (figureFeild.matrixFigure[2][y] == 9) countdown1++;
             if (figureFeild.matrixFigure[0][y] == 9) countup0++;
-            if (figureFeild.matrixFigure[1][y] == 9) countup1++;
+                if (figureFeild.matrixFigure[1][y] == 9) countup1++;
         }
         if (countleft0 < 4) status[0] = 0;
-        if (countleft0 == 4) status[0] = 1;
-        if (countleft1 == 4) status[0] = 2;
+            if (countleft0 == 4) status[0] = 1;
+                if (countleft1 == 4) status[0] = 2;
         if (countright0 < 4) status[2] = 0;
-        if (countright0 == 4) status[2] = 1;
-        if (countright1 == 4) status[2] = 2;
+            if (countright0 == 4) status[2] = 1;
+                if (countright1 == 4) status[2] = 2;
         if (countdown0 < 4) status[1] = 0;
-        if (countdown0 == 4) status[1] = 1;
-        if (countdown1 == 4) status[1] = 2;
+            if (countdown0 == 4) status[1] = 1;
+                if (countdown1 == 4) status[1] = 2;
         if (countup0 < 4) status[3] = 0;
-        if (countup0 == 4) status[3] = 1;
-        if (countup1 == 4) status[3] = 2;
+            if (countup0 == 4) status[3] = 1;
+                if (countup1 == 4) status[3] = 2;
         return status;
     }
 
@@ -79,6 +74,7 @@ public class Game {
             for (int x = 0; x < Matrix.getSize().x; x++) {
                 if (Matrix.getStatus(y, x) != 9) countOnLine++;
             }
+
             if (countOnLine >= Matrix.getSize().x) {
                 deleteLine(y);
                 countLine++;
@@ -103,8 +99,6 @@ public class Game {
                 } catch (Exception e) { }
             }
         }
-        //if (figureFeild.coord.x + getEmptyLineFigure()[3] < 1
-        //        && figureFeild.coord.x - getEmptyLineFigure()[1] + 4 >= Matrix.getSize().x) t = false;
         return t;
     }
     public static void rotateFigure() {
@@ -115,6 +109,7 @@ public class Game {
                     rotateMatrix[y][x] = figureFeild.matrixFigure[y][x];
                 }
             }
+
             for (int y = 0; y < 4; y++) {
                 for (int x = 0; x < 4; x++) {
                     figureFeild.matrixFigure[y][x] = rotateMatrix[x][3 - y];
@@ -127,7 +122,6 @@ public class Game {
     public static void moveFigureToLeft() {
         if (checkLeft()) figureFeild.coord.x--;
         moveFigure(figureFeild.coord);
-
     }
 
     public static void moveFigureToRight() {
@@ -139,7 +133,7 @@ public class Game {
         boolean t = true;
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
-                try { // для обхода ошибки массива при вызове getStatus внизу игрового поля
+                try {
                     if (figureFeild.matrixFigure[y][x] != 9
                             && Matrix.getStatus(figureFeild.coord.y + y, figureFeild.coord.x + x - 1) != 9) {
                         t = false;
@@ -156,7 +150,7 @@ public class Game {
         boolean t = true;
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
-                try { // для обхода ошибки массива при вызове getStatus внизу игрового поля
+                try {
                     if (figureFeild.matrixFigure[y][x] != 9
                             && Matrix.getStatus(figureFeild.coord.y + y, figureFeild.coord.x + x + 1) != 9) {
 
@@ -167,7 +161,6 @@ public class Game {
         }
 
         if (figureFeild.coord.x - getEmptyLineFigure()[2] + 4 >= Matrix.getSize().x) t = false;
-
         return t;
     }
 
@@ -187,7 +180,6 @@ public class Game {
         }
         if (figureFeild.coord.y + 4 >= Matrix.getSize().y
                 && figureFeild.coord.y - getEmptyLineFigure()[1] + 4 >= Matrix.getSize().y) t = false;
-
         return t;
     }
 
@@ -199,7 +191,6 @@ public class Game {
     }
 
     public static void moveFigureToDown() {
-
         if (!checkDown()) {
             addFigureToMatrixField(figureFeild.coord);
             scanLine();
@@ -207,7 +198,6 @@ public class Game {
         }
         if (checkDown()) figureFeild.coord.y++;
         moveFigure(figureFeild.coord);
-
     }
 
     public static void addFigureToMatrixField(Coord coord) {
@@ -227,6 +217,7 @@ public class Game {
                 Matrix.setMatrixFigureOnField(new Coord(x, y), 9);
             }
         }
+
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
                 if (figureFeild.matrixFigure[y][x] < 9 && figureFeild.coord.y + y >= 0) {
@@ -244,7 +235,6 @@ public class Game {
         }
     }
 
-
     public static void start() {
         Matrix.startMatrixField();
         newFigureMenu();
@@ -257,7 +247,6 @@ public class Game {
         boolean t =  false;
         for (int x = 0; x < Matrix.getSize().x; x++)
             if (Matrix.getStatus(1, x) != 9) t = true;
-
         return t;
     }
 }
