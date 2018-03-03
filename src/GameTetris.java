@@ -17,7 +17,7 @@ public class GameTetris extends JFrame {
     private final int FIELD_WIDTH = 8; // ширина игрового поля в блоках
     private final  int SIZE_BlOCK = 28; // размер каждого блока
     private final int MENU_HEIGHT = 4; // высота блока меню
-    private final int SLEEP_START = 700;
+    private final int SLEEP_START = 800;
     private int sleep;
     private final int x_start;
     private final int y_start;
