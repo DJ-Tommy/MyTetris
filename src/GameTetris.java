@@ -9,8 +9,8 @@ import java.awt.event.KeyListener;
 
 public class GameTetris extends JFrame {
 
-    private JPanel panelField;
-    private JPanel panelMenu;
+    private static JPanel panelField;
+    private static JPanel panelMenu;
 
     private final String TITLE = "Tetris v.1.0.2";
     private final int FIELD_HEIGHT = 20; // высота игрового поля в блоках
@@ -18,7 +18,7 @@ public class GameTetris extends JFrame {
     private final  int SIZE_BlOCK = 28; // размер каждого блока
     private final int MENU_HEIGHT = 4; // высота блока меню
     private final int SLEEP_START = 800; // начальная скорость
-    private int sleep; // скорость будет расти
+    private static int sleep; // скорость будет расти
     private final int x_start; // для отображения следующей фигуры
     private final int y_start;
 
@@ -40,8 +40,8 @@ public class GameTetris extends JFrame {
 
     }
 
-    private void goTimer() {
-        while (!Game.gameOver()) {
+    private static void goTimer() {
+        while (1>0) {
             try {
                 Thread.sleep(sleep);
             } catch (Exception e) { }
@@ -145,6 +145,7 @@ public class GameTetris extends JFrame {
                 if (e2.getKeyCode() == KeyEvent.VK_ENTER) {
                     Game.start();
                     sleep = SLEEP_START;
+
                 }
 
                 if (e2.getKeyCode() == KeyEvent.VK_DOWN) {
