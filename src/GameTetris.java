@@ -12,14 +12,14 @@ public class GameTetris extends JFrame {
     private static JPanel panelField;
     private static JPanel panelMenu;
 
-    private final String TITLE = "Tetris v.1.0.2";
+    private final String TITLE = "Tetris v.1.0.3";
     private final int FIELD_HEIGHT = 20; // высота игрового поля в блоках
     private final int FIELD_WIDTH = 8; // ширина игрового поля в блоках
     private final  int SIZE_BlOCK = 28; // размер каждого блока
     private final int MENU_HEIGHT = 4; // высота блока меню
     private final int SLEEP_START = 800; // начальная скорость
     private static int sleep; // скорость будет расти
-    private final int x_start; // для отображения следующей фигуры
+    private final int x_start; // для отображения следующей фигуры в верхнем блоке
     private final int y_start;
 
 
@@ -28,7 +28,6 @@ public class GameTetris extends JFrame {
     }
 
     private GameTetris() {
-
         new Game(FIELD_WIDTH, FIELD_HEIGHT);
         x_start = (FIELD_WIDTH - 3) * SIZE_BlOCK;
         y_start = (MENU_HEIGHT - 3) * SIZE_BlOCK + SIZE_BlOCK / 2;
@@ -37,7 +36,6 @@ public class GameTetris extends JFrame {
         initFrame();
         sleep = SLEEP_START;
         goTimer();
-
     }
 
     private static void goTimer() {
@@ -87,10 +85,8 @@ public class GameTetris extends JFrame {
                     gr.drawString("GAME", SIZE_BlOCK,SIZE_BlOCK * 3);
                     gr.drawString("OVER", SIZE_BlOCK,SIZE_BlOCK * 6);
                 }
-
             }
         };
-
         panelField.setPreferredSize(new Dimension(FIELD_WIDTH * SIZE_BlOCK, FIELD_HEIGHT * SIZE_BlOCK));
         panelField.setBackground(Color.black);
         panelField.setBorder(new BevelBorder(0));
@@ -124,7 +120,6 @@ public class GameTetris extends JFrame {
                 }
             }
         };
-
         panelMenu.setPreferredSize(new Dimension(FIELD_WIDTH * SIZE_BlOCK, MENU_HEIGHT * SIZE_BlOCK));
         panelMenu.setBackground(Color.WHITE);
         panelMenu.setBorder(new BevelBorder(0));
@@ -132,20 +127,15 @@ public class GameTetris extends JFrame {
     }
 
     private void initFrame() {
-
         addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e1) {
-
-            }
+            public void keyTyped(KeyEvent e1) { }
 
             @Override
             public void keyPressed(KeyEvent e2) {
-
                 if (e2.getKeyCode() == KeyEvent.VK_ENTER) {
                     Game.start();
                     sleep = SLEEP_START;
-
                 }
 
                 if (e2.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -164,15 +154,11 @@ public class GameTetris extends JFrame {
                     Game.moveFigureToRight();
                 }
                 repaint();
-
             }
 
             @Override
-            public void keyReleased(KeyEvent e2) {
-
-            }
+            public void keyReleased(KeyEvent e2) { }
         });
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(TITLE);
         setVisible(true);

@@ -61,8 +61,11 @@ public class Game {
 
         for (int y = 0; y < line + 1; y++) {
             for (int x = 0; x < Matrix.getSize().x; x++) {
-                if (y == 0)Matrix.setMatrixField(new Coord(x, y), 9);
-                else Matrix.setMatrixField(new Coord(x, y), deleteMatrix [y-1][x]);
+                if (y == 0) {
+                    Matrix.setMatrixField(new Coord(x, y), 9);
+                } else {
+                    Matrix.setMatrixField(new Coord(x, y), deleteMatrix[y - 1][x]);
+                }
             }
         }
     }
@@ -72,9 +75,10 @@ public class Game {
         for (int y = 0; y < Matrix.getSize().y; y++) {
             int countOnLine = 0;
             for (int x = 0; x < Matrix.getSize().x; x++) {
-                if (Matrix.getStatus(y, x) != 9) countOnLine++;
+                if (Matrix.getStatus(y, x) != 9) {
+                    countOnLine++;
+                }
             }
-
             if (countOnLine >= Matrix.getSize().x) {
                 deleteLine(y);
                 countLine++;
@@ -90,17 +94,19 @@ public class Game {
                 try {
                     if (figureFeild.matrixFigure[x][3 - y] != 9
                             && figureFeild.coord.x + x >= Matrix.getSize().x
-                            || figureFeild.coord.x + x < 0) t = false;
+                            || figureFeild.coord.x + x < 0) {
+                        t = false;
+                    }
                     if (figureFeild.matrixFigure[x][3 - y] != 9
                             && Matrix.getStatus(figureFeild.coord.y + y, figureFeild.coord.x + x) != 9) {
                         t = false;
                     }
-
                 } catch (Exception e) { }
             }
         }
         return t;
     }
+
     public static void rotateFigure() {
         if (checkRotate()) {
             int[][] rotateMatrix = new int[4][4];
@@ -109,7 +115,6 @@ public class Game {
                     rotateMatrix[y][x] = figureFeild.matrixFigure[y][x];
                 }
             }
-
             for (int y = 0; y < 4; y++) {
                 for (int x = 0; x < 4; x++) {
                     figureFeild.matrixFigure[y][x] = rotateMatrix[x][3 - y];
@@ -120,12 +125,16 @@ public class Game {
     }
 
     public static void moveFigureToLeft() {
-        if (checkLeft()) figureFeild.coord.x--;
+        if (checkLeft()) {
+            figureFeild.coord.x--;
+        }
         moveFigure(figureFeild.coord);
     }
 
     public static void moveFigureToRight() {
-        if (checkRight()) figureFeild.coord.x++;
+        if (checkRight()) {
+            figureFeild.coord.x++;
+        }
         moveFigure(figureFeild.coord);
     }
 
@@ -141,7 +150,6 @@ public class Game {
                 } catch (Exception e) {}
             }
         }
-
         if (figureFeild.coord.x + getEmptyLineFigure()[0] < 1) t = false;
         return t;
     }
@@ -153,13 +161,11 @@ public class Game {
                 try {
                     if (figureFeild.matrixFigure[y][x] != 9
                             && Matrix.getStatus(figureFeild.coord.y + y, figureFeild.coord.x + x + 1) != 9) {
-
                         t = false;
                     }
                 } catch (Exception e) {}
             }
         }
-
         if (figureFeild.coord.x - getEmptyLineFigure()[2] + 4 >= Matrix.getSize().x) t = false;
         return t;
     }
@@ -171,15 +177,15 @@ public class Game {
                 try { // для обхода ошибки массива при вызове getStatus внизу игрового поля
                     if (figureFeild.matrixFigure[y][x] != 9
                             && Matrix.getStatus(figureFeild.coord.y + y + 1, figureFeild.coord.x + x) != 9) {
-
                         t = false;
                     }
                 } catch (Exception e) {}
             }
-
         }
         if (figureFeild.coord.y + 4 >= Matrix.getSize().y
-                && figureFeild.coord.y - getEmptyLineFigure()[1] + 4 >= Matrix.getSize().y) t = false;
+                && figureFeild.coord.y - getEmptyLineFigure()[1] + 4 >= Matrix.getSize().y) {
+            t = false;
+        }
         return t;
     }
 
@@ -196,7 +202,9 @@ public class Game {
             scanLine();
             nextFigure();
         }
-        if (checkDown()) figureFeild.coord.y++;
+        if (checkDown()) {
+            figureFeild.coord.y++;
+        }
         moveFigure(figureFeild.coord);
     }
 
@@ -217,7 +225,6 @@ public class Game {
                 Matrix.setMatrixFigureOnField(new Coord(x, y), 9);
             }
         }
-
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
                 if (figureFeild.matrixFigure[y][x] < 9 && figureFeild.coord.y + y >= 0) {

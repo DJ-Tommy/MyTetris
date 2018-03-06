@@ -13,7 +13,8 @@ public class Figure {
             for (int x = 0; x < 4; x++) {
                 count++;
                 matrixFigure [y][x] = 9;
-                if (count == Matrix.FIGURE[nomber][0] || count == Matrix.FIGURE[nomber][1] || count == Matrix.FIGURE[nomber][2] || count == Matrix.FIGURE[nomber][3]) {
+                if (count == Matrix.FIGURE[nomber][0] || count == Matrix.FIGURE[nomber][1]
+                        || count == Matrix.FIGURE[nomber][2] || count == Matrix.FIGURE[nomber][3]) {
                     matrixFigure [y][x] = nomber;
                 }
             }

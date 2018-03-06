@@ -26,7 +26,6 @@ public class Matrix {
                                         {5, 6, 10, 11},   // Z
                                         {7, 8, 10, 11}};  // S
 
-
     public static Coord getSize() {
         return size;
     }
